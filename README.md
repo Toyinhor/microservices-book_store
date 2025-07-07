@@ -1,2 +1,1 @@
-STILL WIP
-dockerize each service and compose together
+WIP: dockerize each service and compose together
