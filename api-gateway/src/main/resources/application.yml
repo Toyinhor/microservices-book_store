@@ -1,0 +1,31 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: book-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/book-service/**
+          filters:
+            - RewritePath=/book-service/(?<segment>.*), /${segment}
+
+        - id: borrow-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/borrow-service/**
+          filters:
+            - RewritePath=/borrow-service/(?<segment>.*), /${segment}
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Book Service
+        url: /book-service/v3/api-docs
+      - name: Borrow Service
+        url: /borrow-service/v3/api-docs
